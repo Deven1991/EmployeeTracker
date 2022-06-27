@@ -19,6 +19,7 @@ const startTrack = () => {
     firstQuestion();
 };
 
+//List of questions user is presented with
 const firstQuestion = () => {
     inquirer.prompt([
         {
@@ -61,6 +62,7 @@ const firstQuestion = () => {
     })
 };
 
+//Function to update role
 const updateRole = () => {
     inquirer.prompt([
         {
@@ -95,6 +97,7 @@ const updateRole = () => {
     })
 } 
 
+//Views role
 const viewRoles = () => {
     const query = `SELECT roles.id, roles.title AS Title, roles.salary AS Salary, departments.name AS Department FROM roles LEFT JOIN departments on roles.department_id = departments.id`
     db.query(query, (err, res) => {
@@ -109,6 +112,7 @@ const viewRoles = () => {
     })
 };
 
+//Adds role
 const addRole = () => {
     inquirer.prompt([
         {
@@ -143,6 +147,7 @@ const addRole = () => {
     })
 }
 
+//Allows user to view departments
 const viewDepartments = () => {
     query = `SELECT departments.id, departments.name AS Department FROM departments`
     db.query(query, (err, res) => {
@@ -157,6 +162,7 @@ const viewDepartments = () => {
     })
 };
 
+//Allows user to add department
 const addDepartment = () => {
     inquirer.prompt([
         {
@@ -181,6 +187,7 @@ const addDepartment = () => {
     })
 }
 
+//Allows user to view all employees
 const viewAllEmployees = () => {
     const query = `SELECT employees.id, employees.first_name AS First, employees.last_name AS Last, roles.title AS Title, departments.name AS Department, roles.salary AS Salary, CONCAT(manager.first_name,' ', manager.last_name) AS Manager
     FROM employees
@@ -199,6 +206,7 @@ const viewAllEmployees = () => {
     })
 };
 
+//Array of all employees
 const employeesArray = [];
     const queryEmployees = `SELECT first_name FROM employees`
     db.query(queryEmployees, (err, res) => {
@@ -209,6 +217,8 @@ const employeesArray = [];
             employeesArray.push(first_name);
         });
     });
+
+//Array of roles
 const rolesArray = [];
     const queryRoles = `SELECT title FROM roles`
     db.query(queryRoles, (err, res) => {
@@ -219,6 +229,8 @@ const rolesArray = [];
             rolesArray.push(title);
         })
     })
+
+//Array of departments
 const departmentsArray = [];
     const queryDepartments = `SELECT name from departments`
     db.query(queryDepartments, (err, res) => {
